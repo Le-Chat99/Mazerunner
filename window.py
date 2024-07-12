@@ -9,7 +9,7 @@ class Window:
         self.__root.title("MazeRunner3000")  # Set the title
         self.__root.protocol("WM_DELETE_WINDOW",self.close)
 
-        self.canvas= Canvas(self.__root, width=self.width, height=self.height)
+        self.canvas= Canvas(self.__root, width=self.width, height=self.height, bg='white')
         self.canvas.pack(fill=BOTH, expand=True)
         self.running=False
 

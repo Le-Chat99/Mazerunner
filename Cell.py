@@ -12,38 +12,42 @@ class Cell:
         self._y1=y1
         self._y2=y2
         self._win=win
+        self.visited=False
 
     def Draw(self, fill_color):
         if self.has_left_wall:
             p1=Point(self._x1, self._y1)
-            p2=Point(self._x2, self._y1)
+            p2=Point(self._x1, self._y2)
             Line(p1,p2).draw(self._win.canvas, fill_color)
         else:
             p1=Point(self._x1, self._y1)
-            p2=Point(self._x2, self._y1)
+            p2=Point(self._x1, self._y2)
             Line(p1,p2).draw(self._win.canvas, "white")
+        
         if self.has_right_wall:
-            p1=Point(self._x1, self._y2)
+            p1=Point(self._x2, self._y1)
             p2=Point(self._x2, self._y2)
             Line(p1,p2).draw(self._win.canvas, fill_color)
         else:
-            p1=Point(self._x1, self._y2)
+            p1=Point(self._x2, self._y1)
             p2=Point(self._x2, self._y2)
             Line(p1,p2).draw(self._win.canvas, "white")
+        
         if self.has_top_wall:
             p1=Point(self._x1, self._y1)
-            p2=Point(self._x1, self._y2)
+            p2=Point(self._x2, self._y1)
             Line(p1,p2).draw(self._win.canvas, fill_color)
         else:
             p1=Point(self._x1, self._y1)
-            p2=Point(self._x1, self._y2)
+            p2=Point(self._x2, self._y1)
             Line(p1,p2).draw(self._win.canvas, "white")
+        
         if self.has_bottom_wall:
-            p1=Point(self._x2, self._y1)
+            p1=Point(self._x1, self._y2)
             p2=Point(self._x2, self._y2)
             Line(p1,p2).draw(self._win.canvas, fill_color)
         else:
-            p1=Point(self._x2, self._y1)
+            p1=Point(self._x1, self._y2)
             p2=Point(self._x2, self._y2)
             Line(p1,p2).draw(self._win.canvas, "white")
     def draw_move(self, to_cell, undo=False):

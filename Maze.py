@@ -42,22 +42,41 @@ class Maze:
         self._animate()
     def _animate(self):
         self.win.redraw()
-        time.sleep(0.01)
+        time.sleep(0.00001)
     
     def _break_entrance_and_exit(self):
         self._cells[0][0].has_top_wall=False
         self._cells[self.num_cols-1][self.num_rows-1].has_bottom_wall=False
-        for i in range(self.num_cols):
-            for j in range(self.num_rows):
-                self._draw_cell(i,j)
     def _break_walls_r(self,i,j):
         self._cells[i][j].visited=True
         while True:
-            visiti=[]
-            visitj=[]
-            if (self._cells[i+1][j].visited and
-                self._cells[i-1][j].visited and
-                self._cells[i][j+1].visited and
-                self._cells[i][j-1].visited):
-                self._draw_cell(i,j)
+            potential_neighbors = [[i+1, j], [i-1, j], [i, j+1], [i, j-1]]
+            valid_neighbors = []
+            for ni, nj in potential_neighbors:
+                if 0 <= ni < len(self._cells) and 0 <= nj < len(self._cells[0]):
+                    if not self._cells[ni][nj].visited:
+                        valid_neighbors.append([ni, nj])
+        
+
+            if not valid_neighbors:
+                self._draw_cell(i, j)
+                return
+            
+            D = random.choice(valid_neighbors)
+            
+            if D==[i+1,j]:
+                self._cells[i][j].has_right_wall=False
+                self._cells[i+1][j].has_left_wall=False
+            if D==[i-1,j]:
+                self._cells[i-1][j].has_right_wall=False
+                self._cells[i][j].has_left_wall=False
+            if D==[i,j+1]:
+                self._cells[i][j].has_bottom_wall=False
+                self._cells[i][j+1].has_top_wall=False
+            if D==[i,j-1]:
+                self._cells[i][j-1].has_bottom_wall=False
+                self._cells[i][j].has_top_wall=False
+            self._break_walls_r(D[0],D[1])
+
+                    
             
